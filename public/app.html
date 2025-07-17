@@ -15,6 +15,7 @@
     <!-- <button onclick="createconnection()">Create WebSocket Connection</button> -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        const name = localStorage.getItem('name') || 'Anonymous';
         
         // function createconnection(){
         //     const socker=io();
@@ -28,15 +29,15 @@
 
         sendBtn.addEventListener('click' , ()=>{
             const message = mess.value;
-            socket.emit('chatMessage', message);
+            socket.emit('chatMessage', name+': '+message);
             mess.value = '';
 
         })
 
         socket.on('serverMessage' , (value)=>{
             // console.log(value);
-            const name = localStorage.getItem('name') || 'Anonymous';
-            allMessages.innerHTML +=`<p><b>${name}</b>: ${value}</p>`;
+            
+            allMessages.innerHTML +=`<p> ${value}</p>`;
         })
         window.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
