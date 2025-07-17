@@ -3,40 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHAT APP</title>
+    <title></title>
 </head>
-<body id="body">
+<body>
 
-    <h1>Chatting</h1>
-    <input type="text" id="message" placeholder="Enter message...">
-    <button id="sendBtn">Send</button>
-    <div id="allMessages"></div>
-
-    <!-- <button onclick="createconnection()">Create WebSocket Connection</button> -->
-    <script src="/socket.io/socket.io.js"></script>
+    <h1 style="text-align: center;">WELCOME TO CHATWORLD</h1>
+    <label for="name">Enter Your Name:</label>
+    <input type="text" id="name" placeholder="Enter your name...">
+    <br>
+    <br>
+    <label for="password">Enter the password:</label>
+    <input type="password" id="password" placeholder="Enter password...">
+    <br>
+    <br>
+    <button id="startChatBtn">Start Chat</button>
+    
     <script>
-        
-        // function createconnection(){
-        //     const socker=io();
-        // }
-
-        const socket =io();
-        const sendBtn=document.getElementById('sendBtn');
-        const mess=document.getElementById('message');
-        const body=document.getElementById('body');
-        const allMessages=document.getElementById('allMessages');
-
-        sendBtn.addEventListener('click' , ()=>{
-            const message = mess.value;
-            socket.emit('chatMessage', message);
-            mess.value = '';
-
-        })
-
-        socket.on('serverMessage' , (value)=>{
-            // console.log(value);
-            allMessages.innerHTML +=`<p>${value}</p>`
-        })
+        const btn=document.getElementById('startChatBtn');
+        const nameInput=document.getElementById('name');
+        const passwordInput=document.getElementById('password');
+        const KEY='12345678'
+        btn.addEventListener('click', ()=>{
+            const name = nameInput.value;
+            if(name){
+                if(passwordInput.value !== KEY) {
+                    alert('Incorrect password! Please try again.');
+                    return;
+                }
+                localStorage.setItem('name', name);
+                window.location.href = 'app.html';
+            } else {
+                alert('Please enter your name to start chatting!');
+            }
+        });
     </script>
 </body>
 </html>

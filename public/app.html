@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAT APP</title>
+</head>
+<body id="body">
+
+    <h1>Chatting</h1>
+    <input type="text" id="message" placeholder="Enter message...">
+    <button id="sendBtn">Send</button>
+    <div id="allMessages"></div>
+
+    <!-- <button onclick="createconnection()">Create WebSocket Connection</button> -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        
+        // function createconnection(){
+        //     const socker=io();
+        // }
+
+        const socket =io();
+        const sendBtn=document.getElementById('sendBtn');
+        const mess=document.getElementById('message');
+        const body=document.getElementById('body');
+        const allMessages=document.getElementById('allMessages');
+
+        sendBtn.addEventListener('click' , ()=>{
+            const message = mess.value;
+            socket.emit('chatMessage', message);
+            mess.value = '';
+
+        })
+
+        socket.on('serverMessage' , (value)=>{
+            // console.log(value);
+            const name = localStorage.getItem('name') || 'Anonymous';
+            allMessages.innerHTML +=`<p><b>${name}</b>: ${value}</p>`;
+        })
+    </script>
+</body>
+</html>
