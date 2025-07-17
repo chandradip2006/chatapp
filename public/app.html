@@ -38,6 +38,11 @@
             const name = localStorage.getItem('name') || 'Anonymous';
             allMessages.innerHTML +=`<p><b>${name}</b>: ${value}</p>`;
         })
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
     </script>
 </body>
 </html>

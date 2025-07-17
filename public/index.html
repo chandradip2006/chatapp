@@ -36,6 +36,16 @@
                 alert('Please enter your name to start chatting!');
             }
         });
+
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                btn.click();
+            }
+        });
+
+        window.addEventListener('reload', () => {
+            window.location.href = '';
+        });
     </script>
 </body>
 </html>
